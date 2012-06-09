@@ -39,7 +39,7 @@ module Crdts
     private
 
     def assert_valid_type(other)
-      raise ArgumentError, "other must be a #{self.class.name}" unless other.is_a?(Crdts::Integer)
+      raise ArgumentError, "must respond to value" unless other.respond_to?(:value)
     end
   end
 end
