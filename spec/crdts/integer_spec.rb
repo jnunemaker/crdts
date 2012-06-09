@@ -14,6 +14,12 @@ describe Crdts::Integer do
   end
 
   describe "#increment" do
+    it "returns self" do
+      integer = Crdts::Integer.new(1)
+      result = integer.increment
+      result.should equal(integer)
+    end
+
     context "with value" do
       it "increments by value" do
         integer = Crdts::Integer.new(1)
@@ -32,6 +38,12 @@ describe Crdts::Integer do
   end
 
   describe "#decrement" do
+    it "returns self" do
+      integer = Crdts::Integer.new(1)
+      result = integer.decrement
+      result.should equal(integer)
+    end
+
     context "with value" do
       it "decrements by value" do
         integer = Crdts::Integer.new(5)

@@ -8,24 +8,22 @@ module Crdts
 
     def increment(increment_by=1)
       @value += increment_by
+      self
     end
 
     def decrement(decrement_by=1)
       @value -= decrement_by
+      self
     end
 
     def +(other)
       assert_valid_type(other)
-      duplicate = clone
-      duplicate.increment(other.value)
-      duplicate
+      clone.increment(other.value)
     end
 
     def -(other)
       assert_valid_type(other)
-      duplicate = clone
-      duplicate.decrement(other.value)
-      duplicate
+      clone.decrement(other.value)
     end
 
     def eql?(other)
