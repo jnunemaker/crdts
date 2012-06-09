@@ -8,6 +8,10 @@ module Crdts
   end
 
   class ReplicatedIntegerCollection
+    include Enumerable
+
+    attr_reader :source
+
     def initialize(source = nil)
       @source = source || default_source
     end
@@ -24,6 +28,11 @@ module Crdts
     def each
       @source.each { |item| yield item }
     end
+
+    def eql?(other)
+      self.class.eql?(other.class) && source == other.source
+    end
+    alias :== :eql?
 
     private
 

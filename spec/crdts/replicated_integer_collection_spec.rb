@@ -51,4 +51,38 @@ describe Crdts::ReplicatedIntegerCollection do
     end
     actual.should eq(expected)
   end
+
+  describe "#eql?" do
+    it "returns true when same class and name" do
+      collection = Crdts::ReplicatedIntegerCollection.new([replicated_integer])
+      collection.should eql(Crdts::ReplicatedIntegerCollection.new([replicated_integer]))
+    end
+
+    it "returns false when same class, but different name" do
+      collection = Crdts::ReplicatedIntegerCollection.new([replicated_integer])
+      collection.should_not eql(Crdts::ReplicatedIntegerCollection.new)
+    end
+
+    it "returns false when different class" do
+      collection = Crdts::ReplicatedIntegerCollection.new([replicated_integer])
+      collection.should_not eql(Object.new)
+    end
+  end
+
+  describe "#==" do
+    it "returns true when same class and name" do
+      collection = Crdts::ReplicatedIntegerCollection.new([replicated_integer])
+      collection.should eq(Crdts::ReplicatedIntegerCollection.new([replicated_integer]))
+    end
+
+    it "returns false when same class, but different name" do
+      collection = Crdts::ReplicatedIntegerCollection.new([replicated_integer])
+      collection.should_not eq(Crdts::ReplicatedIntegerCollection.new)
+    end
+
+    it "returns false when different class" do
+      collection = Crdts::ReplicatedIntegerCollection.new([replicated_integer])
+      collection.should_not eq(Object.new)
+    end
+  end
 end
