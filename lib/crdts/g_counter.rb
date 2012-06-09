@@ -22,6 +22,8 @@ module Crdts
   #
   class GCounter
 
+    attr_reader :collection
+
     # Public: initialize a new g counter
     #
     # collection - A ReplicatedIntegerCollection to operate on
@@ -55,6 +57,11 @@ module Crdts
         yield item.name, item.value
       end
     end
+
+    def eql?(other)
+      self.class.eql?(other.class) && collection == other.collection
+    end
+    alias :== :eql?
 
     private
 

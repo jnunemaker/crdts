@@ -70,4 +70,44 @@ describe Crdts::GCounter do
       end
     end
   end
+
+  describe "#eql?" do
+    it "returns true when same class and name" do
+      collection = double('collection')
+      counter = Crdts::GCounter.new(collection)
+      counter.should eql(Crdts::GCounter.new(collection))
+    end
+
+    it "returns false when same class, but different name" do
+      collection = double('collection')
+      counter = Crdts::GCounter.new(collection)
+      counter.should_not eql(Crdts::GCounter.new)
+    end
+
+    it "returns false when different class" do
+      collection = double('collection')
+      counter = Crdts::GCounter.new(collection)
+      counter.should_not eql(Object.new)
+    end
+  end
+
+  describe "#==" do
+    it "returns true when same class and name" do
+      collection = double('collection')
+      counter = Crdts::GCounter.new(collection)
+      counter.should eq(Crdts::GCounter.new(collection))
+    end
+
+    it "returns false when same class, but different name" do
+      collection = double('collection')
+      counter = Crdts::GCounter.new(collection)
+      counter.should_not eq(Crdts::GCounter.new)
+    end
+
+    it "returns false when different class" do
+      collection = double('collection')
+      counter = Crdts::GCounter.new(collection)
+      counter.should_not eq(Object.new)
+    end
+  end
 end
