@@ -50,6 +50,12 @@ module Crdts
       self
     end
 
+    def each
+      @collection.each do |item|
+        yield item.name, item.value
+      end
+    end
+
     private
 
     def default_collection

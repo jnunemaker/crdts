@@ -17,6 +17,23 @@ describe Crdts::GCounter do
     counter.type.should be(1)
   end
 
+  it "should be iterable" do
+    expected = [
+      double('replicated integer', :name => 'client-1', :value => 3),
+      double('replicated integer', :name => 'client-2', :value => 8),
+    ]
+
+    actual = {}
+    collection = Crdts::GCounter.new(expected)
+    collection.each do |key, value|
+      actual[key] = value
+    end
+    actual.should eq({
+      'client-1' => 3,
+      'client-2' => 8,
+    })
+  end
+
   describe "#value" do
     it "returns collection sum" do
       collection = double('collection', :sum => 2)
