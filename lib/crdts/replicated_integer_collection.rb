@@ -21,6 +21,10 @@ module Crdts
       @source.inject(0) { |sum, item| sum += item.value }
     end
 
+    def each
+      @source.each { |item| yield item }
+    end
+
     private
 
     def default_source

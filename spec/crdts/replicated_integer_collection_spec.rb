@@ -37,4 +37,18 @@ describe Crdts::ReplicatedIntegerCollection do
       collection.sum.should be(11)
     end
   end
+
+  it "should be iterable" do
+    expected = [
+      double('replicated integer', :value => 3),
+      double('replicated integer', :value => 8),
+    ]
+    actual = []
+
+    collection = Crdts::ReplicatedIntegerCollection.new(expected)
+    collection.each do |item|
+      actual << item
+    end
+    actual.should eq(expected)
+  end
 end
