@@ -29,10 +29,7 @@ module Crdts
     def eql?(other)
       self.class.eql?(other.class) && value == other.value
     end
-
-    def ==(other)
-      eql?(other)
-    end
+    alias :== :eql?
 
     private
 

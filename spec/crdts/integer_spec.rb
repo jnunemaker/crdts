@@ -120,28 +120,37 @@ describe Crdts::Integer do
     end
   end
 
-  describe "eql?" do
+  describe "#eql?" do
     it "returns true for same type and value" do
       integer = Crdts::Integer.new(5)
-      integer.eql?(Crdts::Integer.new(5)).should be_true
+      integer.should eql(Crdts::Integer.new(5))
     end
 
     it "returns false for same type, but different value" do
       integer = Crdts::Integer.new(5)
-      integer.eql?(Crdts::Integer.new(3)).should be_false
+      integer.should_not eql(Crdts::Integer.new(3))
     end
 
     it "returns false for different type" do
       integer = Crdts::Integer.new(5)
-      integer.eql?(Object.new).should be_false
+      integer.should_not eql(Object.new)
     end
   end
 
   describe "#==" do
-    it "uses eql?" do
+    it "returns true for same type and value" do
       integer = Crdts::Integer.new(5)
-      integer.should_receive(:eql?)
-      integer == Crdts::Integer.new(5)
+      integer.should eq(Crdts::Integer.new(5))
+    end
+
+    it "returns false for same type, but different value" do
+      integer = Crdts::Integer.new(5)
+      integer.should_not eq(Crdts::Integer.new(3))
+    end
+
+    it "returns false for different type" do
+      integer = Crdts::Integer.new(5)
+      integer.should_not eq(Object.new)
     end
   end
 end
