@@ -47,4 +47,48 @@ describe Crdts::ReplicatedInteger do
     integer.should_receive(:-)
     replicated_integer.-
   end
+
+  describe "#eql?" do
+    it "returns true when same class, replica and integer" do
+      replicated_integer = Crdts::ReplicatedInteger.new(replica, integer)
+      replicated_integer.should eql(Crdts::ReplicatedInteger.new(replica, integer))
+    end
+
+    it "returns false when same class, but different replica" do
+      replicated_integer = Crdts::ReplicatedInteger.new(replica, integer)
+      replicated_integer.should_not eql(Crdts::ReplicatedInteger.new(double('replica'), integer))
+    end
+
+    it "returns false when same class and replica, but different integer" do
+      replicated_integer = Crdts::ReplicatedInteger.new(replica, integer)
+      replicated_integer.should_not eql(Crdts::ReplicatedInteger.new(replica, double('integer')))
+    end
+
+    it "returns false when different class" do
+      replicated_integer = Crdts::ReplicatedInteger.new(replica)
+      replicated_integer.should_not eql(Object.new)
+    end
+  end
+
+  describe "#==" do
+    it "returns true when same class, replica and integer" do
+      replicated_integer = Crdts::ReplicatedInteger.new(replica, integer)
+      replicated_integer.should eq(Crdts::ReplicatedInteger.new(replica, integer))
+    end
+
+    it "returns false when same class, but different replica" do
+      replicated_integer = Crdts::ReplicatedInteger.new(replica, integer)
+      replicated_integer.should_not eq(Crdts::ReplicatedInteger.new(double('replica'), integer))
+    end
+
+    it "returns false when same class and replica, but different integer" do
+      replicated_integer = Crdts::ReplicatedInteger.new(replica, integer)
+      replicated_integer.should_not eq(Crdts::ReplicatedInteger.new(replica, double('integer')))
+    end
+
+    it "returns false when different class" do
+      replicated_integer = Crdts::ReplicatedInteger.new(replica)
+      replicated_integer.should_not eq(Object.new)
+    end
+  end
 end
