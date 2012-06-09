@@ -18,6 +18,16 @@ describe Crdts::ReplicatedInteger do
     replicated_integer.should be_instance_of(Crdts::ReplicatedInteger)
   end
 
+  it "delegates name to replica" do
+    replica.should_receive(:name).and_return('client-1')
+    replicated_integer.name.should eq('client-1')
+  end
+
+  it "delegates value to integer" do
+    integer.should_receive(:value)
+    replicated_integer.value
+  end
+
   it "delegates increment to integer" do
     integer.should_receive(:increment)
     replicated_integer.increment

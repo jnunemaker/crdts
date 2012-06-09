@@ -10,7 +10,8 @@ module Crdts
       @integer = integer || default_integer
     end
 
-    def_delegators :@integer, :increment, :decrement, :+, :-
+    def_delegator :@replica, :name
+    def_delegators :@integer, :value, :increment, :decrement, :+, :-
 
     private
 
