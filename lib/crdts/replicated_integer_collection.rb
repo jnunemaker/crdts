@@ -1,5 +1,4 @@
-require 'crdts/integer'
-require 'crdts/replica'
+require 'crdts/replicated_integer'
 
 module Crdts
   class ReplicaNotFound < StandardError
