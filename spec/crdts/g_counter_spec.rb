@@ -24,8 +24,14 @@ describe Crdts::GCounter do
     before do
       @collection = double('collection')
       @replica = double('replica')
-      @integer = double('integer')
+      @integer = double('replica integer', :increment => nil)
       @counter = Crdts::GCounter.new(@collection)
+      @collection.stub(:get) { @integer }
+    end
+
+    it "returns self" do
+      @result = @counter.increment(@replica)
+      @result.should equal(@counter)
     end
 
     it "increments value by 1" do
