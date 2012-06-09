@@ -12,6 +12,11 @@ describe Crdts::GCounter do
     counter.should be_instance_of(Crdts::GCounter)
   end
 
+  it "knows type" do
+    counter = Crdts::GCounter.new
+    counter.type.should be(1)
+  end
+
   describe "#value" do
     it "returns collection sum" do
       collection = double('collection', :sum => 2)

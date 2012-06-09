@@ -1,3 +1,4 @@
+require 'crdts/types'
 require 'crdts/integer'
 require 'crdts/replicated_integer_collection'
 
@@ -26,6 +27,10 @@ module Crdts
     # collection - A ReplicatedIntegerCollection to operate on
     def initialize(collection = nil)
       @collection = collection || default_collection
+    end
+
+    def type
+      Crdts::Types[:g_counter]
     end
 
     # Public: The sum of the replicated integers
