@@ -12,7 +12,9 @@ module Crdts
     end
 
     def increment(replica, increment_by=1)
-      @collection[replica].increment(increment_by)
+      replicated_integer = @collection.get(replica)
+      replicated_integer.increment(increment_by)
+      self
     end
 
     private

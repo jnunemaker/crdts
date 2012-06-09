@@ -29,14 +29,14 @@ describe Crdts::GCounter do
     end
 
     it "increments value by 1" do
-      @collection.should_receive(:[]).with(@replica).and_return(@integer)
+      @collection.should_receive(:get).with(@replica).and_return(@integer)
       @integer.should_receive(:increment).with(1)
       @counter.increment(@replica)
     end
 
     context "with value to increment by" do
       it "increments by value" do
-        @collection.should_receive(:[]).with(@replica).and_return(@integer)
+        @collection.should_receive(:get).with(@replica).and_return(@integer)
         @integer.should_receive(:increment).with(3)
         @counter.increment(@replica, 3)
       end

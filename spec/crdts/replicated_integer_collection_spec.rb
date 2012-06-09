@@ -1,44 +1,39 @@
 require 'crdts/replicated_integer_collection'
 
 describe Crdts::ReplicatedIntegerCollection do
-  let(:replica) { Crdts::Replica.new('client-1') }
-  let(:integer) { Crdts::Integer.new }
+  let(:replica) { double('replica') }
+  let(:replicated_integer) { double('replicated integer', :replica => replica) }
 
   it "initializes with no arguments" do
     collection = Crdts::ReplicatedIntegerCollection.new
     collection.should be_instance_of(Crdts::ReplicatedIntegerCollection)
   end
 
-  it "initializes with hash of replica/integer pairs" do
-    hash = {replica => integer}
-    collection = Crdts::ReplicatedIntegerCollection.new(hash)
+  it "initializes with array of replicated integers" do
+    collection = Crdts::ReplicatedIntegerCollection.new([replicated_integer])
     collection.should be_instance_of(Crdts::ReplicatedIntegerCollection)
   end
 
-  describe "#[]" do
-    context "with known replica" do
-      it "returns integer instance" do
-        collection = Crdts::ReplicatedIntegerCollection.new({replica => integer})
-        collection[replica].should equal(integer)
-      end
+  describe "#get" do
+    it "returns replicated integer instance" do
+      collection = Crdts::ReplicatedIntegerCollection.new([replicated_integer])
+      collection.get(replica).should equal(replicated_integer)
     end
 
-    context "with missing replica" do
-      it "returns integer instance" do
-        collection = Crdts::ReplicatedIntegerCollection.new
-        result = collection[replica]
-        result.should be_instance_of(Crdts::Integer)
-        result.value.should be(0)
-      end
+    it "raises exception if replica not found" do
+      collection = Crdts::ReplicatedIntegerCollection.new
+      expect {
+        puts collection.get(replica).inspect
+      }.to raise_error(Crdts::ReplicaNotFound)
     end
   end
 
   describe "#sum" do
     it "returns sum of replicated integers" do
-      collection = Crdts::ReplicatedIntegerCollection.new({
-        Crdts::Replica.new('client-1') => Crdts::Integer.new(3),
-        Crdts::Replica.new('client-2') => Crdts::Integer.new(8),
-      })
+      collection = Crdts::ReplicatedIntegerCollection.new([
+        double('replicated integer', :value => 3),
+        double('replicated integer', :value => 8),
+      ])
       collection.sum.should be(11)
     end
   end
