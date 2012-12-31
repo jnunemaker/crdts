@@ -1,20 +1,6 @@
 # Crdts
 
-Convergent replicated data types.
-
-## Installation
-
-Add this line to your application's Gemfile:
-
-    gem 'crdts'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install crdts
+Convergent replicated data types. Completely unfinshed and not worth anything at this point. Was just playing around while I read [the paper](http://hal.inria.fr/docs/00/55/55/88/PDF/techreport.pdf).
 
 ## Contributing
 
